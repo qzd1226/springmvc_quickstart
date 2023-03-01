@@ -19,7 +19,7 @@ import org.springframework.web.servlet.support.AbstractDispatcherServletInitiali
 
 public class ServletContainersInitConfig extends AbstractDispatcherServletInitializer {
 
-    protected WebApplicationContext createServletApplicationContext() {
+    protected WebApplicationContext  createServletApplicationContext() {
         // 加载spring mvc 对应的容器对象
         AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();
         ctx.register(SpringMvcConfig.class); //加载配置类
