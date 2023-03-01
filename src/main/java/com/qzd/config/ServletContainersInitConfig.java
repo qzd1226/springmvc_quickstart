@@ -2,6 +2,7 @@ package com.qzd.config;
 
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
+import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 import org.springframework.web.servlet.support.AbstractDispatcherServletInitializer;
 // Spring 和 Spring mvc 的区别：
 //Spring是一个应用程序开发框架，它提供了一系列的组件和工具，
@@ -17,22 +18,34 @@ import org.springframework.web.servlet.support.AbstractDispatcherServletInitiali
 //        表单验证、文件上传等等。
 
 
-public class ServletContainersInitConfig extends AbstractDispatcherServletInitializer {
+public class ServletContainersInitConfig extends AbstractAnnotationConfigDispatcherServletInitializer {
+    protected Class<?>[] getRootConfigClasses() {
+        return new Class[]{SpringConfig.class};
+    }
 
-    protected WebApplicationContext  createServletApplicationContext() {
-        // 加载spring mvc 对应的容器对象
-        AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();
-        ctx.register(SpringMvcConfig.class); //加载配置类
-        return ctx;
+    protected Class<?>[] getServletConfigClasses() {
+        return new Class[]{SpringMvcConfig.class};
     }
 
     protected String[] getServletMappings() {
-        //这个方法指定什么请求归spring处理 什么请求归spring mvc处理
-        return new String[]{"/"}; // 代表所有请求都归spring mvc 处理
+        return new String[]{"/"};
     }
 
-    protected WebApplicationContext createRootApplicationContext() {
-        //  加载spring对应的配置文件对象
-        return null;
-    }
+
+//    protected WebApplicationContext  createServletApplicationContext() {
+//        // 加载spring mvc 对应的容器对象
+//        AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();
+//        ctx.register(SpringMvcConfig.class); //加载配置类
+//        return ctx;
+//    }
+//
+//    protected String[] getServletMappings() {
+//        //这个方法指定什么请求归spring处理 什么请求归spring mvc处理
+//        return new String[]{"/"}; // 代表所有请求都归spring mvc 处理
+//    }
+//
+//    protected WebApplicationContext createRootApplicationContext() {
+//        //  加载spring对应的配置文件对象
+//        return null;
+//    }
 }
